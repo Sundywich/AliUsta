@@ -204,7 +204,7 @@ Transform:
   m_GameObject: {fileID: 30722206}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.67, y: -2.24, z: 0}
+  m_LocalPosition: {x: -6.38, y: -1.46, z: 0}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -376,7 +376,7 @@ Transform:
   m_GameObject: {fileID: 129832217}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.87, y: 3.99, z: 0}
+  m_LocalPosition: {x: -4.05, y: 3.99, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -772,6 +772,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentOrder: 0
+  currentCustomer: {fileID: 0}
   orderHasGiven: 0
 --- !u!1 &1988901038
 GameObject:
@@ -822,6 +823,7 @@ MonoBehaviour:
   spawnRate: 5
   Customer: {fileID: 5301785205778832860, guid: 73a92f074534c264693252e78d665536, type: 3}
   CashoutPlace: {fileID: 0}
+  Cashout: {fileID: 1725196169}
 --- !u!1001 &2982480738657266519
 PrefabInstance:
   m_ObjectHideFlags: 0
