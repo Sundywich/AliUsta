@@ -11,6 +11,9 @@ public class Customer : MonoBehaviour
     public float speed = 2f;
     [HideInInspector] public Vector3 placeToGo;
 
+    [Header("Variables for Ordering")]
+    public int orderAmount;
+
     // Start is called before the first frame update
     private void Awake()
     {     
@@ -19,6 +22,10 @@ public class Customer : MonoBehaviour
     private void Update()
     {
         transform.position = Vector3.MoveTowards(transform.position, placeToGo, speed * Time.deltaTime); 
+    }
+    private void OnEnable()
+    {
+        orderAmount = Random.Range(1, 4);
     }
 
 }

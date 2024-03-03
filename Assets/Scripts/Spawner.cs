@@ -17,11 +17,34 @@ public class Spawner : MonoBehaviour
     [SerializeField] private float Timer;
     public bool canSpawnObjects = true;
     public int maxObjectCount = 8;
+    public int level = 1;
 
     private void Start()
     {       
         InvokeRepeating("SpawnObject", 0f, spawnRate);
         canSpawnObjects = true;
+    }
+
+    private void Update()
+    {
+        switch(level)
+        {
+            case 1:
+                spawnRate = spawnRate;
+                break;
+            case 2:
+                spawnRate += 0.5f;
+                break;
+            case 3:
+                spawnRate += 1;
+                break;
+            case 4:
+                spawnRate += 1;
+                break;
+            case 5:
+                spawnRate += 1.5f;
+                break;
+        }
     }
 
     private void SpawnObject()
@@ -49,7 +72,7 @@ public class Spawner : MonoBehaviour
 
             if (hit.collider.gameObject.CompareTag("CigKofte"))
             {
-                print("hey");
+                // print("hey");
                 count++;
             }
         }

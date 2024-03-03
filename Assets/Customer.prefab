@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 6475053878415264883}
   - component: {fileID: 5893013240686029383}
   - component: {fileID: 6539192156500093230}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Customer
-  m_TagString: Untagged
+  m_TagString: Customer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -171,4 +171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9d6e62608644f243b5102d63cb1c97f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CashoutPlace: {fileID: 0}
+  speed: 2
+  placeToGo: {x: 0, y: 0, z: 0}
+  orderAmount: 0
