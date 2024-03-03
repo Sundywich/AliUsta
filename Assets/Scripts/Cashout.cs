@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Cashout : MonoBehaviour
@@ -8,9 +9,23 @@ public class Cashout : MonoBehaviour
     [SerializeField] private int currentOrder;
     [SerializeField] private GameObject currentCustomer;
     [SerializeField] private bool orderHasGiven = false;
-    
 
-    
+    [Header("UI")]
+    public TextMeshProUGUI orderText;
+
+
+    private void Update()
+    {
+        if(!orderHasGiven)
+        {
+            orderText.text = "Current Order: " + currentOrder;
+        }
+        else
+        {
+            orderText.text = "Congrats! ";
+        }
+        
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -45,12 +60,4 @@ public class Cashout : MonoBehaviour
         }
     }
 
-    //private void OnTriggerStay2D(Collider2D collision)
-    //{
-    //    if(collision.CompareTag("Customer") && orderHasGiven)
-    //    {
-    //        Destroy(collision);
-    //        orderHasGiven = false;
-    //    }
-    //}
 }

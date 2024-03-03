@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CustomerManager : MonoBehaviour
@@ -16,8 +18,15 @@ public class CustomerManager : MonoBehaviour
     // To make a hand-made IEnumerator
     private float timer;
 
-    [Header("General Variables")]
+    [Header("General Variables and UI")]
+    public GameObject Player;
     public static int score;
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI timeText;
+    public float TourTime = 31f;
+    public GameObject TourMenu;
+    public static int tourCount;
+    public TextMeshProUGUI inHandText;
 
     [Header("Variables to Move the Customers")]
     public Transform CashoutPlace;
@@ -40,11 +49,14 @@ public class CustomerManager : MonoBehaviour
 
     private void Start()
     {
-        timer = 0;      
+        timer = 0; // For spawning customers not counting time
+        Time.timeScale = 0;
+        TourMenu.SetActive(true);
     }
 
     private void Update()
     {
+        #region Spawn Customers 
         timer += Time.deltaTime;
 
         if (timer >= spawnRate && customerCount < howManyCustomersToSpawn && !spawnIsDone) // Using timer float instead of WaitForSeconds because it is much more easier to manage (InvokeRepeating can also be used)
@@ -65,18 +77,55 @@ public class CustomerManager : MonoBehaviour
             spawnIsDone = true;
             return;
         }
-    }
+        #endregion
+        
+        
 
-    IEnumerator SpawnCustomers()
-    {
-        for(int i = 0; i < howManyCustomersToSpawn; i++)
+        TourTime -= Time.deltaTime;
+        timeText.text = "Time: " + TourTime.ToString();
+        scoreText.text = "Current: " + score.ToString();
+        inHandText.text = "Cig Kofte in Hand: " + Player.transform.childCount.ToString();
+
+        if(TourTime <= 0)
         {
-            yield return new WaitForSeconds(spawnRate);
+            Time.timeScale = 0;
+            TourMenu.SetActive(true);
+            TourTime = 31f;
         }
     }
 
     public int GetCustomerCount()
     {
         return customerCount;
+    }
+
+    public void StartNewTour()
+    {
+        tourCount++;
+        switch (tourCount)
+        {
+            case 1:
+                howManyCustomersToSpawn = howManyCustomersToSpawn;
+                break;
+            case 2:
+                howManyCustomersToSpawn += 5;
+                break;
+            case 3:
+                howManyCustomersToSpawn += 5;
+                spawnRate -= 1;
+                break;
+            case 4:
+                howManyCustomersToSpawn += 10;
+                break;
+            case 5:
+                howManyCustomersToSpawn += 5;
+                spawnRate -= 0.5f;
+                break;
+            default: 
+                break;
+        }
+        Time.timeScale = 1;
+        TourMenu.SetActive(false);
+        
     }
 }

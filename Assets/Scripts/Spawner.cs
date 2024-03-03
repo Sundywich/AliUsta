@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 using Quaternion = UnityEngine.Quaternion;
+using TMPro;
 
 public class Spawner : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class Spawner : MonoBehaviour
     public int maxObjectCount = 8;
     public int level = 1;
 
+    [Header("UI")]
+    public TextMeshProUGUI requiresText;
+
     private void Start()
     {       
         InvokeRepeating("SpawnObject", 0f, spawnRate);
@@ -31,18 +35,23 @@ public class Spawner : MonoBehaviour
         {
             case 1:
                 spawnRate = spawnRate;
+                requiresText.text = "Requires: 5 points";
                 break;
             case 2:
                 spawnRate += 0.5f;
+                requiresText.text = "Requires: 5 points";
                 break;
             case 3:
                 spawnRate += 1;
+                requiresText.text = "Requires: 10 points";
                 break;
             case 4:
                 spawnRate += 1;
+                requiresText.text = "Requires: 10 points";
                 break;
             case 5:
                 spawnRate += 1.5f;
+                requiresText.text = "MAX";
                 break;
         }
     }
@@ -78,5 +87,26 @@ public class Spawner : MonoBehaviour
         }
 
         return count;
+    }
+
+    public void Upgrade()
+    {
+        if(CustomerManager.score > 5 && level == 1)
+        {
+            level = 2;
+        }
+        else if(CustomerManager.score > 5 && level == 2)
+        {
+            level = 3;
+        }
+        else if(CustomerManager.score > 10 && level == 3)
+        {
+            level = 4;
+        }
+        else if (CustomerManager.score > 10 && level == 4)
+        {
+            level = 5;
+        }
+        
     }
 }
