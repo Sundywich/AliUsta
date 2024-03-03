@@ -18,39 +18,15 @@ public class Spawner : MonoBehaviour
     public bool canSpawnObjects = true;
     public int maxObjectCount = 8;
 
-    //private void Start()
-    //{
-    //    Timer = 0;
-    //}
-
-    //private void Update()
-    //{
-    //    Timer += Time.deltaTime;
-    //    if (Timer >= spawnRate) 
-    //    {
-
-
-    //        // Spawn Prefabs
-    //        GameObject spawnedObject = Instantiate(objectToSpawn, transform.position, transform.rotation);
-    //        Vector3 currentPositionOfTheObject = spawnedObject.transform.position;
-    //        currentPositionOfTheObject.y -= 2f;
-    //        spawnedObject.transform.position = currentPositionOfTheObject;
-    //        Timer = 0;
-    //    }
-    //}
-
     private void Start()
-    {
-        
+    {       
         InvokeRepeating("SpawnObject", 0f, spawnRate);
         canSpawnObjects = true;
     }
 
     private void SpawnObject()
     {
-        
         int objectCount = CountObjectsInFrontOfTheSpawner();
-
 
         if (objectCount < maxObjectCount)
         {
