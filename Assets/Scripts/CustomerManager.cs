@@ -27,6 +27,7 @@ public class CustomerManager : MonoBehaviour
     public GameObject TourMenu;
     public static int tourCount;
     public TextMeshProUGUI inHandText;
+    public float deltaTime;
 
     [Header("Variables to Move the Customers")]
     public Transform CashoutPlace;
@@ -75,13 +76,11 @@ public class CustomerManager : MonoBehaviour
         else if (totalSpawnedCustomer >= howManyCustomersToSpawn)
         {
             spawnIsDone = true;
-            return;
         }
         #endregion
         
-        
-
-        TourTime -= Time.deltaTime;
+        deltaTime = Time.deltaTime;
+             
         timeText.text = "Time: " + TourTime.ToString();
         scoreText.text = "Current: " + score.ToString();
         inHandText.text = "Cig Kofte in Hand: " + Player.transform.childCount.ToString();
@@ -92,7 +91,12 @@ public class CustomerManager : MonoBehaviour
             TourMenu.SetActive(true);
             TourTime = 31f;
         }
+        else
+        {
+            TourTime -= Time.deltaTime;
+        }
     }
+
 
     public int GetCustomerCount()
     {
@@ -124,7 +128,26 @@ public class CustomerManager : MonoBehaviour
             default: 
                 break;
         }
-        Time.timeScale = 1;
+
+        // Destroy all customers
+        foreach(GameObject Customer in GameObject.FindGameObjectsWithTag("Customer"))
+        {
+            Destroy(Customer);
+        }
+
+        // Destroy all cig koftes
+        for(int i = 0; i < Player.transform.childCount; i++)
+        {
+            Destroy(Player.transform.GetChild(i).gameObject);
+        }
+        
+        // After destroying all customers
+        timer = 0;
+        spawnIsDone = false;
+        customerCount = 0;
+        Cashout.currentOrder = 0;
+        Cashout.thereIsACustomer = false;
+        Time.timeScale = 1;       
         TourMenu.SetActive(false);
         
     }

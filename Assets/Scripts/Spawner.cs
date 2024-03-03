@@ -6,6 +6,7 @@ using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 using Quaternion = UnityEngine.Quaternion;
 using TMPro;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Spawner : MonoBehaviour
 {
@@ -93,18 +94,26 @@ public class Spawner : MonoBehaviour
     {
         if(CustomerManager.score > 5 && level == 1)
         {
+            CustomerManager.score -= 5;
+            CustomerManager.Instance.scoreText.text = "Current: " + CustomerManager.score.ToString();
             level = 2;
         }
         else if(CustomerManager.score > 5 && level == 2)
         {
+            CustomerManager.score -= 5;
+            CustomerManager.Instance.scoreText.text = "Current: " + CustomerManager.score.ToString();
             level = 3;
         }
         else if(CustomerManager.score > 10 && level == 3)
         {
+            CustomerManager.score -= 10;
+            CustomerManager.Instance.scoreText.text = "Current: " + CustomerManager.score.ToString();
             level = 4;
         }
         else if (CustomerManager.score > 10 && level == 4)
         {
+            CustomerManager.score -= 10;
+            CustomerManager.Instance.scoreText.text = "Current: " + CustomerManager.score.ToString();
             level = 5;
         }
         

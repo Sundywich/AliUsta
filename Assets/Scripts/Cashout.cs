@@ -6,9 +6,10 @@ using UnityEngine;
 public class Cashout : MonoBehaviour
 {
     [Header ("Order Variables")]
-    [SerializeField] private int currentOrder;
+    [HideInInspector] public static int currentOrder;
     [SerializeField] private GameObject currentCustomer;
     [SerializeField] private bool orderHasGiven = false;
+    [HideInInspector] public static bool thereIsACustomer = false;
 
     [Header("UI")]
     public TextMeshProUGUI orderText;
@@ -34,10 +35,11 @@ public class Cashout : MonoBehaviour
             currentCustomer = collision.gameObject;
             orderHasGiven = false;
             currentOrder = collision.GetComponent<Customer>().orderAmount;
+            thereIsACustomer = true;
         }
         if (collision.CompareTag("Player"))
         {
-            if(collision.transform.childCount >= currentOrder && !orderHasGiven)
+            if(collision.transform.childCount >= currentOrder && !orderHasGiven && thereIsACustomer)
             {
                 for(int i = 0; i < currentOrder; i++)
                 {
@@ -47,6 +49,7 @@ public class Cashout : MonoBehaviour
                 CustomerManager.score++;             
                 orderHasGiven = true;
                 Destroy(currentCustomer);
+                thereIsACustomer = false;
                 CustomerManager.Instance.customerCount--;
 
                 GameObject[] array = GameObject.FindGameObjectsWithTag("Customer");
